@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -14,6 +15,7 @@ public class Encryption {
 		System.out.println("Enter your password:");
 		String password = sc.nextLine();
 		char chars[] = password.toCharArray();
+		String encryptedPassword = "";
 		
 		//Generating salt
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
@@ -26,8 +28,18 @@ public class Encryption {
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte hash[] = factory.generateSecret(keySpec).getEncoded();
 		
+		BigInteger bi = new BigInteger(1, hash);
+        String hex = bi.toString(16);
+        int paddingLength = (hash.length * 2) - hex.length();
+        if(paddingLength > 0)
+        {
+        	encryptedPassword = String.format("%0"  +paddingLength + "d", 0) + hex;
+        }else{
+        	encryptedPassword = hex;
+        }
+		
 		sc.close();
-		System.out.println("The encrypted password is :"+ hash.toString());
+		System.out.println("The encrypted password is :"+ encryptedPassword);
 	}
 
 }
