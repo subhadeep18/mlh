@@ -1,7 +1,7 @@
-import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
 import java.util.Scanner;
 
 import javax.crypto.SecretKeyFactory;
@@ -28,15 +28,7 @@ public class Encryption {
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte hash[] = factory.generateSecret(keySpec).getEncoded();
 		
-		BigInteger bi = new BigInteger(1, hash);
-        String hex = bi.toString(16);
-        int paddingLength = (hash.length * 2) - hex.length();
-        if(paddingLength > 0)
-        {
-        	encryptedPassword = String.format("%0"  +paddingLength + "d", 0) + hex;
-        }else{
-        	encryptedPassword = hex;
-        }
+		encryptedPassword = Base64.getEncoder().encodeToString(hash);
 		
 		sc.close();
 		System.out.println("The encrypted password is :"+ encryptedPassword);
