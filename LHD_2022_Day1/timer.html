@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+.button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.red {background-color: #f44336;} 
+</style>
+</head>
+  <body>
+  	<p>Enter number for countdown:</p>
+    <input id="userInput" type="number" value = "0"/> <br> <br>
+    <button class="button" onclick="startTime()">Start time</button>
+    <button class="button red" onclick="stop()">Stop time</button>
+    <p id="timerr"> 00 </p>
+    <script> 
+      var myVar;
+      var timer = document.getElementById("userInput");
+      var countDownSeconds;
+      function startTime(){ 
+        myVar = setInterval(start, 1000);
+        document.getElementById("timerr").innerHTML = timer.value;
+        countDownSeconds = timer.value;
+      } 
+
+      function start(){
+        countDownSeconds--;
+        document.getElementById("timerr").innerHTML = countDownSeconds;
+        if (countDownSeconds == -1){
+          stop();
+          document.getElementById("timerr").innerHTML = "0";  
+        }
+      }
+
+      function stop(){
+        clearInterval(myVar);
+      }
+    </script>
+  </body>
+</html>
