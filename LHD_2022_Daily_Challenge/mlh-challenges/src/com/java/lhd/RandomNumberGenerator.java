@@ -14,7 +14,7 @@ public class RandomNumberGenerator {
 		System.out.println("Enter the max range for random number:");
 		int max = Integer.parseInt(br.readLine());
 		System.out.println("Random generated number:");
-		System.out.println((int)(Math.random()*(max-min+1)+min));
+		System.out.println((int)((System.currentTimeMillis() / Math.pow(10, 13))*(max-min+1)+min));
 	}
 
 }
